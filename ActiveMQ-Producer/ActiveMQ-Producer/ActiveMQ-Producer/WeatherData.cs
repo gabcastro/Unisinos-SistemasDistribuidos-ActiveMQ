@@ -7,6 +7,7 @@ namespace ActiveMQ_Producer
 {
     public class DataObject
     {
+        public int Value { get; set; }
         public string Name { get; set; }
     }
     class WeatherData
@@ -15,7 +16,7 @@ namespace ActiveMQ_Producer
 
         public void FetchData()
         {
-            var constProject = new ConstantsProject();
+            var constProject = new Constants();
 
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(constProject.WEATHERAPI[0]);
@@ -26,10 +27,10 @@ namespace ActiveMQ_Producer
             HttpResponseMessage response = client.GetAsync(constProject.WEATHERAPI[1] + constProject.WEATHERAPI[2]).Result;
             if (response.IsSuccessStatusCode)
             {
-                var dataObjects = response.Content.ReadAsAsync<IEnumerable<DataObject>>().Result;
+                var dataObjects = response.Content.ReadAsAsync<IEnumerable<string>>().Result.ToString();
                 foreach (var d in dataObjects)
                 {
-                    Console.WriteLine("{0}", d.Name);
+                    Console.WriteLine("{0}");
                 }
             }
             else

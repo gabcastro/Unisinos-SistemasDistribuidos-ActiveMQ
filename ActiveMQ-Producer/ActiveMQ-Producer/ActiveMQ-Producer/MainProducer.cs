@@ -26,9 +26,7 @@ namespace ActiveMQ_Producer
             Console.WriteLine("*** Created queues: {0}, {1} ***", queueDataMonitoring, queueDataLog);
 
             string brokerUri = $"activemq:tcp://localhost:61616";
-            //string brokerUri = $"stomp:tcp://b-11195e51-8e0a-4016-b040-442d538adeb6-1.mq.us-east-1.amazonaws.com:61614";
-            NMSConnectionFactory factory = new NMSConnectionFactory(brokerUri);
-            
+            NMSConnectionFactory factory = new NMSConnectionFactory(brokerUri);           
 
             using (IConnection connection = factory.CreateConnection())
             {
@@ -39,8 +37,17 @@ namespace ActiveMQ_Producer
                 using (IMessageProducer producer = session.CreateProducer(dest))
                 {
                     producer.DeliveryMode = MsgDeliveryMode.NonPersistent;
+                    ITextMessage message = session.CreateTextMessage(msg);
 
-                    producer.Send(session.CreateTextMessage("Mensagem para enviar"));
+                    long time = 30 * 1000;
+                    long period = 10 * 1000;
+                    int repeat = 9;
+
+                    message.Properties["AMQ_SCHEDULE_DELAY"] = time;
+                    message.Properties["AMQ_SCHEDULE_PERIOD"] = period;
+                    message.Properties["AMQ_SCHEDULE_REPEAT"] = repeat;
+
+                    producer.Send(message);
                 }
             }
         }

@@ -1,4 +1,6 @@
 ﻿using Apache.NMS;
+using Apache.NMS.ActiveMQ;
+using Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,41 +9,40 @@ using System.Threading.Tasks;
 
 namespace ActiveMQ_Consumer
 {
-    class ConsumerMessage
+    class MessageConsumer
     {
-        public ConsumerMessage() { }
+        public ConnectionFactory connectionFactory { get; set; }
 
-        public bool ReadQueue()
+        public MessageConsumer()
         {
-            string queueName = Consts.QUEUEDATA;
-            string brokerUri = Consts.BROKEN_URI;
+            this.connectionFactory = new ConnectionFactory(Globals.WIRE_LEVEL_ENDPOINT);
+        }
 
-            NMSConnectionFactory factory = new NMSConnectionFactory(brokerUri);
-
-            using (IConnection connection = factory.CreateConnection())
+        public void ReceiveMessageQueue()
+        {
+            using (IConnection connection = connectionFactory.CreateConnection(Globals.ACTIVE_MQ_USERNAME, Globals.ACTIVE_MQ_PASSWORD))
             {
                 connection.Start();
+
                 using (ISession session = connection.CreateSession(AcknowledgementMode.AutoAcknowledge))
-                using (IDestination dest = session.GetQueue(queueName))
-                using (IMessageConsumer consumer = session.CreateConsumer(dest))
+                using (IDestination consumerDestination = session.GetQueue(Globals.QUEUE_NAME))
+                using (IMessageConsumer consumer = session.CreateConsumer(consumerDestination))
                 {
                     IMessage msg = consumer.Receive();
+
                     if (msg is ITextMessage)
                     {
                         ITextMessage txtMsg = msg as ITextMessage;
                         string body = txtMsg.Text;
-                        Console.WriteLine("*** Received message: {0} ***", txtMsg.Text);
-                        return true;
+                        Console.WriteLine("{0}: {1} ", DateTime.Now.ToString(), txtMsg.Text);
                     }
                     else
                     {
                         Console.WriteLine("*** Unexpected message type: {0} ***", msg.GetType().Name);
                     }
                 }
+                connection.Close();
             }
-            return false;
         }
     }
-
-
 }

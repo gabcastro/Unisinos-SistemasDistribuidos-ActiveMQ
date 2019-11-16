@@ -1,4 +1,5 @@
 ﻿using Apache.NMS;
+using Apache.NMS.ActiveMQ;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,15 @@ namespace ActiveMQ_Consumer
     {
         static void Main(string[] args)
         {
-            ConsumerMessage cm = new ConsumerMessage();
-            
-            Console.WriteLine("Waiting for messages");
-            while (cm.ReadQueue())
+            var objConsumer = new MessageConsumer();
+            string key;
+
+            while (true)
             {
-                Console.WriteLine("Successfully read message");
+                Console.WriteLine("Wait...");
+
+                objConsumer.ReceiveMessageQueue();
             }
-            Console.WriteLine("Finished");
-        }        
+        }
     }
 }

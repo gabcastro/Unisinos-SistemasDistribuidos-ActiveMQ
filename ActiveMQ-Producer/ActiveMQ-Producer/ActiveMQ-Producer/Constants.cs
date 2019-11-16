@@ -1,21 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
-public class Constants
-{
-    public List<string> WEATHERAPI = new List<string>();
-
-    public Constants()
+namespace Constants
+{    public static class Globals
     {
-        ReadFileConstantsWeather();
-    }
+        public static readonly String WIRE_LEVEL_ENDPOINT = "ssl://b-11195e51-8e0a-4016-b040-442d538adeb6-1.mq.us-east-1.amazonaws.com:61617";
+        public static readonly String ACTIVE_MQ_USERNAME = "admin";
+        public static readonly String ACTIVE_MQ_PASSWORD = "adminUIO0**&h";
 
-    public void ReadFileConstantsWeather ()
-    {
-        string[] lines = System.IO.File.ReadAllLines(@"../../src/InfosAPI.txt");
-
-        foreach (string line in lines)
-        {
-            WEATHERAPI.Add(line);
-        }
+        public static readonly String QUEUE_NAME = "EMAIL.ALERT";
     }
 }

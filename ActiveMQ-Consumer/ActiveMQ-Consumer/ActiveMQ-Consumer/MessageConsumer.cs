@@ -11,16 +11,19 @@ namespace ActiveMQ_Consumer
 {
     class MessageConsumer
     {
-        public ConnectionFactory connectionFactory { get; set; }
+        public ConnectionFactory ConnectionFactory { get; set; }
+        public String MessageFromProducer { get; set; }
+        public TopicMessageData MessageReceived { get; set; }
 
         public MessageConsumer()
         {
-            this.connectionFactory = new ConnectionFactory(Globals.WIRE_LEVEL_ENDPOINT);
+            this.MessageReceived = new TopicMessageData();
+            this.ConnectionFactory = new ConnectionFactory(Globals.WIRE_LEVEL_ENDPOINT);
         }
 
-        public void ReceiveMessageQueue()
+        public TopicMessageData ReceiveMessageQueue()
         {
-            using (IConnection connection = connectionFactory.CreateConnection(Globals.ACTIVE_MQ_USERNAME, Globals.ACTIVE_MQ_PASSWORD))
+            using (IConnection connection = ConnectionFactory.CreateConnection(Globals.ACTIVE_MQ_USERNAME, Globals.ACTIVE_MQ_PASSWORD))
             {
                 connection.Start();
 
@@ -33,16 +36,27 @@ namespace ActiveMQ_Consumer
                     if (msg is ITextMessage)
                     {
                         ITextMessage txtMsg = msg as ITextMessage;
-                        string body = txtMsg.Text;
-                        Console.WriteLine("{0}: {1} ", DateTime.Now.ToString(), txtMsg.Text);
+                        this.MessageFromProducer = txtMsg.Text;
+                        
+                        Console.WriteLine();
+                        Console.WriteLine("{0}: {1} ", DateTime.Now.ToString(), this.MessageFromProducer);
+                        Console.WriteLine();
+
+                        this.MessageReceived.Message = this.MessageFromProducer;
+                        this.MessageReceived.ReceivedTime = DateTime.Now;
                     }
                     else
                     {
                         Console.WriteLine("*** Unexpected message type: {0} ***", msg.GetType().Name);
+
+                        this.MessageReceived.Message = msg.GetType().Name;
+                        this.MessageReceived.ReceivedTime = DateTime.Now;
                     }
                 }
                 connection.Close();
             }
+
+            return this.MessageReceived;
         }
     }
 }

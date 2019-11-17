@@ -1,10 +1,4 @@
-﻿using Apache.NMS;
-using Apache.NMS.ActiveMQ;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace ActiveMQ_Consumer
 {
@@ -12,18 +6,19 @@ namespace ActiveMQ_Consumer
     {
         static void Main(string[] args)
         {
-            //var objConsumer = new MessageConsumer();
-            //string key;
-
-            //while (true)
-            //{
-            //    Console.WriteLine("Wait...");
-
-            //    objConsumer.ReceiveMessageQueue();
-            //}
-
+            var objConsumer = new MessageConsumer();
             var objEmail = new SendEmail();
-            objEmail.SendEmailRequest();
+            TopicMessage message = new TopicMessage();
+
+            while (true)
+            {
+                Console.WriteLine("... Wait...\n");
+
+                message.Data.Add(objConsumer.ReceiveMessageQueue());
+
+                objEmail.SendEmailRequest(message);
+            }
+
         }
     }
 }

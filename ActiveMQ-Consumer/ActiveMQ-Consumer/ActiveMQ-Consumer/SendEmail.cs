@@ -44,17 +44,9 @@ namespace ActiveMQ_Consumer
                           + "using the AWS SDK para .NET.";
         }
 
-        public void SendEmailRequest()
+        public void SendEmailRequest(TopicMessage topicMessage = null)
         {
-            //var options = new CredentialProfileOptions
-            //{
-            //    AccessKey = "AKIAU5OZE2TEEJLC5JOL",
-            //    SecretKey = "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"
-            //};
-            //var profile = new Amazon.Runtime.CredentialManagement.CredentialProfile("basic_profile", options);
-            //profile.Region = RegionEndpoint.USEast1;
-            //var netSDKFile = new NetSDKCredentialsFile();
-            //netSDKFile.RegisterProfile(profile);
+            if (topicMessage != null) BuildMessage(topicMessage);
 
             using (var client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USEast1))
             {
@@ -100,9 +92,29 @@ namespace ActiveMQ_Consumer
 
                 }
             }
+        }
 
-            Console.Write("Press any key to continue...");
-            Console.ReadKey();
+        public void BuildMessage(TopicMessage topicMessage)
+        {
+            this.Subject = "Alert from Producer!";
+            string bodyMessage = "";
+
+            foreach (var item in topicMessage.Data)
+            {
+                bodyMessage += string.Format(" <li> {0}: {1} </li> ", item.ReceivedTime.ToString(), item.Message);
+            }
+            
+            this.HtmlBody = string.Format(@"<html>
+                <head></head>
+                <body>
+                    <h2>Status update</h2>
+                    <ul> 
+                        {0} 
+                    </ul>
+                </body>
+            </html>", bodyMessage);
+
+            this.TextBody = "E-mail provider unsupported message body";
         }
     }
 }

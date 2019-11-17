@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Apache.NMS;
 using Apache.NMS.ActiveMQ;
 using Constants;
@@ -30,11 +26,13 @@ namespace ActiveMQ_Producer
                 {
                     producer.DeliveryMode = MsgDeliveryMode.NonPersistent;
                     
-                    String msg = string.Format("Você está recebendo uma mensagem de teste do ActiveMQ da Amazon!!!");
+                    String msg = string.Format("Information sended to server MQ of Amazon!!!");
                     
                     ITextMessage message = session.CreateTextMessage(msg);
 
                     producer.Send(message);
+
+                    Console.WriteLine("INFO: Succeful in sending message to server");
                 }
             }
         }

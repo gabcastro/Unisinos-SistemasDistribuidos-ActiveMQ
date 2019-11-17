@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="TopicMessage.cs" />
     <Compile Include="MessageConsumer.cs" />
     <Compile Include="MainConsumer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

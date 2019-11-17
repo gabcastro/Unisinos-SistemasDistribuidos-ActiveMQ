@@ -9,5 +9,10 @@ namespace Constants
         public static readonly String ACTIVE_MQ_PASSWORD = "adminUIO0**&h";
 
         public static readonly String QUEUE_NAME = "EMAIL.ALERT";
+
+        public static readonly String SENDER_ADDRESS = "gabrielcastrofernandes@gmail.com";
+        public static readonly String RECEIVER_ADDRESS = "gabrielcastrofernandes@hotmail.com";
+        public static readonly String CONFIG_SET = "ConfigSet";
+
     }
 }

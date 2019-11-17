@@ -21,6 +21,24 @@
 
     https://aws.amazon.com/pt/blogs/aws/amazon-mq-managed-message-broker-service-for-activemq/
     https://docs.aws.amazon.com/pt_br/amazon-mq/latest/developer-guide/amazon-mq-getting-started.html
+    https://docs.aws.amazon.com/pt_br/amazon-mq/latest/developer-guide/amazon-mq-getting-started.html#connect-java-application
+    https://docs.aws.amazon.com/pt_br/amazon-mq/latest/developer-guide/amazon-mq-working-java-example.html
+
 - Banckmark
 
     http://sensatic.net/activemq/python-messaging-activemq-and-rabbitmq.html
+
+
+
+https://docs.aws.amazon.com/pt_br/toolkit-for-visual-studio/latest/user-guide/credentials.html
+
+
+https://www.rabbitmq.com/getstarted.html
+https://www.rabbitmq.com/tutorials/tutorial-four-python.html
+https://www.rabbitmq.com/tutorials/tutorial-three-python.html
+
+
+https://github.com/dejanb/pymsg
+
+
+https://stackoverflow.com/questions/34438756/activemq-no-iconnectionfactory-implementation-found-for-connection

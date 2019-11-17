@@ -12,15 +12,18 @@ namespace ActiveMQ_Consumer
     {
         static void Main(string[] args)
         {
-            var objConsumer = new MessageConsumer();
-            string key;
+            //var objConsumer = new MessageConsumer();
+            //string key;
 
-            while (true)
-            {
-                Console.WriteLine("Wait...");
+            //while (true)
+            //{
+            //    Console.WriteLine("Wait...");
 
-                objConsumer.ReceiveMessageQueue();
-            }
+            //    objConsumer.ReceiveMessageQueue();
+            //}
+
+            var objEmail = new SendEmail();
+            objEmail.SendEmailRequest();
         }
     }
 }

@@ -42,3 +42,5 @@ https://github.com/dejanb/pymsg
 
 
 https://stackoverflow.com/questions/34438756/activemq-no-iconnectionfactory-implementation-found-for-connection
+
+https://docs.aws.amazon.com/pt_br/ses/latest/DeveloperGuide/send-using-sdk-net.html

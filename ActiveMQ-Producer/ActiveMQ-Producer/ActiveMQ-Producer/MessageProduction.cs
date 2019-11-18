@@ -32,7 +32,7 @@ namespace ActiveMQ_Producer
 
                     producer.Send(message);
 
-                    Console.WriteLine("INFO: Succeful in sending message to server");
+                    Console.WriteLine("INFO: Successful in sending message to server");
                 }
             }
         }

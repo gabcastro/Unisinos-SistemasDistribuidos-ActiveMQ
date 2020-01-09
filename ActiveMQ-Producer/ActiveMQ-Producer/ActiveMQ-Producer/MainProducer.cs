@@ -9,11 +9,11 @@ namespace ActiveMQ_Producer
         static void Main(string[] args)
         {
             int count = 0;
-            while (count < 2)
+            while (count < 50)
             {
                 Thread thread = new Thread(new ThreadStart(SendMessageToServer));
                 thread.Start();
-                Thread.Sleep(20000);
+                //Thread.Sleep(1000);
 
                 count++;
             }

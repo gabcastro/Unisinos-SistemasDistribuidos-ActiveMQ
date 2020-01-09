@@ -8,4 +8,4 @@ O trabalho consistiu em uma parte primária, onde foi estudado um pouco sobre o 
 
 Como  ideia  e  foco,  foi  pensado  em  distribuir  duas  aplicacções  de  forma  que  fossem possíveis  de  se  comunicar  através  de  um  endpoint  e  em  locais  diferentes. Abaixo é mostrado um esquemático da arquitetura planejada.
 
-![alt text](Images\arq_sistema.png)
+![alt text](https://github.com/gabcastro/Unisinos-SistemasDistribuidos-ActiveMQ/blob/master/Images/arq_sistema.png)
